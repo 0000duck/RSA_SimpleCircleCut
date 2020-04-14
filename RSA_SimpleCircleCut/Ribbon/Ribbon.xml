@@ -8,14 +8,15 @@
     <Tab id="Home">
       <!-- It is possible to add a button to an existing group, but note that standard groups may change -->
       <!-- In this sample we create a new group -->
-      <Group id="RSA_SimpleCircleCut" caption="RSA_SimpleCircleCut">
+      <Group id="Circle Cut Add-in" caption="RSA_SimpleCircleCut.Addin">
         <Control id="RSA_SimpleCircleCut.StartButton" layout="Large"/>
       </Group>
     </Tab>
     <!-- Create a new ribbon tab -->
-    <Tab id="RSA_SimpleCircleCut.Tab1" caption="RSA_SimpleCircleCut" visible="false">
-      <Group id="Group1" caption="Group 1">
+    <Tab id="RSA_SimpleCircleCut.Tab1" caption="RSA_SimpleCircleCut.Addin" visible="false">
+      <Group id="Group1" caption="Best Group">
         <Control id="RSA_SimpleCircleCut.Button1" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CreateTargetButton1" layout="Large"/>
         <Control id="RSA_SimpleCircleCut.Gallery1" layout="Large"/>
       </Group>
       <Group id="Group2" caption="Group 2">

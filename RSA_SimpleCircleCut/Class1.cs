@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using ABB.Robotics;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
+// using ABB.Robotics.Controllers;
 
 namespace RSA_SimpleCircleCut
 {
@@ -22,6 +24,7 @@ namespace RSA_SimpleCircleCut
             RegisterCommand("RSA_SimpleCircleCut.Button1");
             RegisterCommand("RSA_SimpleCircleCut.Button2");
             RegisterCommand("RSA_SimpleCircleCut.GalleryButton1");
+            RegisterCommand("RSA_SimpleCircleCut.CreateTargetButton1");
 
             CommandBarComboBox comboBox = CommandBarComboBox.FromID("RSA_SimpleCircleCut.ComboBox1");
             comboBox.SelectionChanged += comboBox_SelectionChanged;
@@ -46,6 +49,9 @@ namespace RSA_SimpleCircleCut
                     e.Enabled = true;
                     break;
                 case "RSA_SimpleCircleCut.Button1":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CreateTargetButton1":
                     e.Enabled = true;
                     break;
                 case "RSA_SimpleCircleCut.Button2":
@@ -79,6 +85,9 @@ namespace RSA_SimpleCircleCut
                     break;
                 case "RSA_SimpleCircleCut.Button1":
                     Logger.AddMessage("RSA_SimpleCircleCut: Button1 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CreateTargetButton1":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Create Target pressed, initiating...");
                     break;
                 case "RSA_SimpleCircleCut.Button2":
                     Logger.AddMessage("RSA_SimpleCircleCut: Button2 pressed");

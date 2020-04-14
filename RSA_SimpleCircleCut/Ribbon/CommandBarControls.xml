@@ -7,12 +7,13 @@
   
   <!-- The 'Start' button has defaultEnabled set to true which means it will be enabled even before the add-in is loaded. -->
   <!-- When it is clicked the add-in will be loaded and the ExecuteCommand handler will be called. -->
-  <CommandBarButton id="RSA_SimpleCircleCut.StartButton" caption="Show RSA_SimpleCircleCut" defaultEnabled="true"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.StartButton" caption="Show Circle Cut Add-in" defaultEnabled="true"/>
   <CommandBarButton id="RSA_SimpleCircleCut.CloseButton" caption="Close"/>
 
   <CommandBarButton id="RSA_SimpleCircleCut.Button1" caption="Button 1"/>
   <CommandBarButton id="RSA_SimpleCircleCut.Button2" caption="Button 2"/>
   <CommandBarButton id="RSA_SimpleCircleCut.GalleryButton1" caption="Gallery Button 1" defaultEnabled="true"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CreateTargetButton1" caption="Create Target"/>
 
   <CommandBarComboBox id="RSA_SimpleCircleCut.ComboBox1" caption="Select: ">
     <Items>

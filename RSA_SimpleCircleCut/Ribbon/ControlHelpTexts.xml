@@ -9,7 +9,7 @@
   <Control id="RSA_SimpleCircleCut.CloseButton">Close the ribbon tab</Control>
   <Control id="RSA_SimpleCircleCut.Button1">Button1 help text</Control>
   <Control id="RSA_SimpleCircleCut.Button2">Button2 help text</Control>
-
+  <Control id="RSA_SimpleCircleCut.CreateTargetButton1">Press this to insert Circle hole cut</Control>
   <Control id="RSA_SimpleCircleCut.GalleryButton1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Control>
   
 </Controls>
