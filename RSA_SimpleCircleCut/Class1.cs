@@ -117,6 +117,9 @@ namespace RSA_SimpleCircleCut
                     break;
                 case "RSA_SimpleCircleCut.Button1":
                     Logger.AddMessage("RSA_SimpleCircleCut: Button1 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CreateTargetButton1":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Createing target at defined coordinates");
                     try
                     {
 
@@ -136,6 +139,7 @@ namespace RSA_SimpleCircleCut
                     {
                         //End UndoStep
                         Project.UndoContext.EndUndoStep();
+                        Logger.AddMessage("RSA_SimpleCircleCut: Targets created");
                     }
                     break;
                 case "RSA_SimpleCircleCut.Button2":
