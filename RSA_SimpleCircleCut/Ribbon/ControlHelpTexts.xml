@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Controls xmlns="urn:abb-robotics-robotstudio-controlhelptexts"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:abb-robotics-robotstudio-controlhelptexts file:///C:\Program%20Files%20(x86)\ABB%20Industrial%20IT\Robotics%20IT\SDK\RobotStudio%20SDK%202019\ControlHelpTexts.xsd">
+  
+  <!-- Help texts for controls specified in CommandBarControls.xml -->
+  
+  <Control id="RSA_SimpleCircleCut.StartButton">For loading RSA_SimpleCircleCut</Control>
+  <Control id="RSA_SimpleCircleCut.CloseButton">Close the ribbon tab</Control>
+  <Control id="RSA_SimpleCircleCut.Button1">Button1 help text</Control>
+  <Control id="RSA_SimpleCircleCut.Button2">Button2 help text</Control>
+
+  <Control id="RSA_SimpleCircleCut.GalleryButton1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Control>
+  
+</Controls>

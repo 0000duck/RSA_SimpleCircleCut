@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Ribbon xmlns="urn:abb-robotics-robotstudio-ribbon"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:abb-robotics-ribbon file:///C:\Program%20Files%20(x86)\ABB%20Industrial%20IT\Robotics%20IT\SDK\RobotStudio%20SDK%202019\Ribbon.xsd">
+
+  <Tabs>
+    <!-- Add a button to an existing ribbon tab -->
+    <Tab id="Home">
+      <!-- It is possible to add a button to an existing group, but note that standard groups may change -->
+      <!-- In this sample we create a new group -->
+      <Group id="RSA_SimpleCircleCut" caption="RSA_SimpleCircleCut">
+        <Control id="RSA_SimpleCircleCut.StartButton" layout="Large"/>
+      </Group>
+    </Tab>
+    <!-- Create a new ribbon tab -->
+    <Tab id="RSA_SimpleCircleCut.Tab1" caption="RSA_SimpleCircleCut" visible="false">
+      <Group id="Group1" caption="Group 1">
+        <Control id="RSA_SimpleCircleCut.Button1" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.Gallery1" layout="Large"/>
+      </Group>
+      <Group id="Group2" caption="Group 2">
+        <Control id="RSA_SimpleCircleCut.ComboBox1" layout="Small"/>
+        <Control id="RSA_SimpleCircleCut.Menu1" layout="Small"/>
+      </Group>
+      <Group id="Group3" caption="Group 3">
+        <Control id="RSA_SimpleCircleCut.CloseButton" layout="Large"/>
+      </Group>
+    </Tab>
+  </Tabs>
+</Ribbon>

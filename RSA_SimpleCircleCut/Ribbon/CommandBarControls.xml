@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CommandBarControls xmlns="urn:abb-robotics-robotstudio-commandbarcontrols"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="urn:abb-robotics-robotstudio-commandbarcontrols file:///C:\Program%20Files%20(x86)\ABB%20Industrial%20IT\Robotics%20IT\SDK\RobotStudio%20SDK%202019\CommandBarControls.xsd">
+
+  <!-- Controls defined by this add-in -->
+  
+  <!-- The 'Start' button has defaultEnabled set to true which means it will be enabled even before the add-in is loaded. -->
+  <!-- When it is clicked the add-in will be loaded and the ExecuteCommand handler will be called. -->
+  <CommandBarButton id="RSA_SimpleCircleCut.StartButton" caption="Show RSA_SimpleCircleCut" defaultEnabled="true"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CloseButton" caption="Close"/>
+
+  <CommandBarButton id="RSA_SimpleCircleCut.Button1" caption="Button 1"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.Button2" caption="Button 2"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.GalleryButton1" caption="Gallery Button 1" defaultEnabled="true"/>
+
+  <CommandBarComboBox id="RSA_SimpleCircleCut.ComboBox1" caption="Select: ">
+    <Items>
+      <Item tag="1" caption="Item 1"/>
+      <Item tag="2" caption="Item 2"/>
+      <Item tag="3" caption="Item 3"/>
+    </Items>
+  </CommandBarComboBox>
+  
+  <CommandBarPopup id="RSA_SimpleCircleCut.Menu1" caption="Sample Menu">
+    <Controls>
+      <Header caption="Header"/>
+      <Control id="RSA_SimpleCircleCut.Button1"/>
+      <Separator/>
+      <Control id="RSA_SimpleCircleCut.Button2"/>
+    </Controls>
+  </CommandBarPopup>
+
+  <CommandBarGalleryPopup id="RSA_SimpleCircleCut.Gallery1" caption="Sample Gallery" textPos="Right" imageId="RSA_SimpleCircleCut.Button2">
+    <GalleryControls>
+      <Header caption="Header 1"/>
+      <Control id="RSA_SimpleCircleCut.GalleryButton1"/>
+      <Header caption="Header 2"/>
+    </GalleryControls>
+    <Controls>
+      <Control id="RSA_SimpleCircleCut.Button1"/>
+    </Controls>
+  </CommandBarGalleryPopup>
+
+</CommandBarControls>
