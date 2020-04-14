@@ -26,6 +26,16 @@
       <Group id="Group3" caption="Group 3">
         <Control id="RSA_SimpleCircleCut.CloseButton" layout="Large"/>
       </Group>
+      <Group id="Group4" caption="Custom Buttons">
+        <Control id="RSA_SimpleCircleCut.CustButton1" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton2" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton3" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton4" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton5" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton6" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton7" layout="Large"/>
+        <Control id="RSA_SimpleCircleCut.CustButton8" layout="Large"/>
+      </Group>
     </Tab>
   </Tabs>
 </Ribbon>

@@ -108,6 +108,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ribbon\RSA_SimpleCircleCut.CustButton1.Large.png" />
+    <Content Include="Ribbon\2-8.png" />
+    <Content Include="Ribbon\3-8.png" />
+    <Content Include="Ribbon\4-8.png" />
+    <Content Include="Ribbon\5-8.png" />
+    <Content Include="Ribbon\6-8.png" />
+    <Content Include="Ribbon\7-8.png" />
+    <Content Include="Ribbon\8-8.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -25,6 +25,14 @@ namespace RSA_SimpleCircleCut
             RegisterCommand("RSA_SimpleCircleCut.Button2");
             RegisterCommand("RSA_SimpleCircleCut.GalleryButton1");
             RegisterCommand("RSA_SimpleCircleCut.CreateTargetButton1");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton1");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton2");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton3");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton4");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton5");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton6");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton7");
+            RegisterCommand("RSA_SimpleCircleCut.CustButton8");
 
             CommandBarComboBox comboBox = CommandBarComboBox.FromID("RSA_SimpleCircleCut.ComboBox1");
             comboBox.SelectionChanged += comboBox_SelectionChanged;
@@ -61,6 +69,30 @@ namespace RSA_SimpleCircleCut
                 case "RSA_SimpleCircleCut.GalleryButton1":
                     e.Enabled = true;
                     break;
+                case "RSA_SimpleCircleCut.CustButton1":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton2":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton3":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton4":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton5":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton6":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton7":
+                    e.Enabled = true;
+                    break;
+                case "RSA_SimpleCircleCut.CustButton8":
+                    e.Enabled = true;
+                    break;
             }
         }
 
@@ -85,9 +117,26 @@ namespace RSA_SimpleCircleCut
                     break;
                 case "RSA_SimpleCircleCut.Button1":
                     Logger.AddMessage("RSA_SimpleCircleCut: Button1 pressed");
-                    break;
-                case "RSA_SimpleCircleCut.CreateTargetButton1":
-                    Logger.AddMessage("RSA_SimpleCircleCut: Create Target pressed, initiating...");
+                    try
+                    {
+
+                        // Create the first robotstudio target.
+                        ShowTarget(new Vector3(-0.50629, -3, 0.67950));
+
+                        // Create the second robotstudio target.
+                        ShowTarget(new Vector3(0.500, 0, 0.700));
+
+                    }
+                    catch (Exception exception)
+                    {
+                        Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                        Logger.AddMessage(new LogMessage(exception.Message.ToString()));
+                    }
+                    finally
+                    {
+                        //End UndoStep
+                        Project.UndoContext.EndUndoStep();
+                    }
                     break;
                 case "RSA_SimpleCircleCut.Button2":
                     Logger.AddMessage("RSA_SimpleCircleCut: Button2 pressed");
@@ -96,8 +145,66 @@ namespace RSA_SimpleCircleCut
                 case "RSA_SimpleCircleCut.GalleryButton1":
                     Logger.AddMessage("RSA_SimpleCircleCut: GalleryButton1 pressed");
                     break;
+                case "RSA_SimpleCircleCut.CustButton1":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 1 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton2":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 2 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton3":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 3 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton4":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 4 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton5":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 5 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton6":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 6 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton7":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 7 pressed");
+                    break;
+                case "RSA_SimpleCircleCut.CustButton8":
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 8 pressed");
+                    break;
             }
         }
+
+        private static void ShowTarget(Vector3 position)
+        {
+            try
+            {
+                //get the active station
+                Station station = Project.ActiveProject as Station;
+
+                //create robtarget
+                RsRobTarget robTarget = new RsRobTarget();
+                robTarget.Name = station.ActiveTask.GetValidRapidName("Target", "_", 10);
+
+                //translation
+                robTarget.Frame.Translation = position;
+
+                //add robtargets to datadeclaration
+                station.ActiveTask.DataDeclarations.Add(robTarget);
+
+                //create target
+                RsTarget target = new RsTarget(station.ActiveTask.ActiveWorkObject, robTarget);
+                target.Name = robTarget.Name;
+                target.Attributes.Add(target.Name, true);
+
+                //add targets to active task
+                station.ActiveTask.Targets.Add(target);
+            }
+            catch (Exception exception)
+            {
+                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
+            }
+        }
+
+
+
 
         static void gallery_UpdateContent(object sender, EventArgs e)
         {

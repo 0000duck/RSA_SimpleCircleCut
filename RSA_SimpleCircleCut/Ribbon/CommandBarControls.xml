@@ -14,6 +14,15 @@
   <CommandBarButton id="RSA_SimpleCircleCut.Button2" caption="Button 2"/>
   <CommandBarButton id="RSA_SimpleCircleCut.GalleryButton1" caption="Gallery Button 1" defaultEnabled="true"/>
   <CommandBarButton id="RSA_SimpleCircleCut.CreateTargetButton1" caption="Create Target"/>
+  
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton1" caption="Custom Button 1"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton2" caption="Custom Button 2"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton3" caption="Custom Button 3"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton4" caption="Custom Button 4"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton5" caption="Custom Button 5"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton6" caption="Custom Button 6"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton7" caption="Custom Button 7"/>
+  <CommandBarButton id="RSA_SimpleCircleCut.CustButton8" caption="Custom Button 8"/>
 
   <CommandBarComboBox id="RSA_SimpleCircleCut.ComboBox1" caption="Select: ">
     <Items>

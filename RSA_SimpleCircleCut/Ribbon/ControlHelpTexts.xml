@@ -11,5 +11,16 @@
   <Control id="RSA_SimpleCircleCut.Button2">Button2 help text</Control>
   <Control id="RSA_SimpleCircleCut.CreateTargetButton1">Press this to insert Circle hole cut</Control>
   <Control id="RSA_SimpleCircleCut.GalleryButton1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton1">CB 1</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton2">CB 2</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton3">CB 3</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton4">CB 4</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton5">CB 5</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton6">CB 6</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton7">CB 7</Control>
+  <Control id="RSA_SimpleCircleCut.CustButton8">CB 8</Control>
+  
+  
+  
   
 </Controls>
