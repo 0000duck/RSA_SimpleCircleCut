@@ -7,6 +7,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
+using FeaturePathCreate;
 //using ABB.Robotics.Controllers; // Controllers doesn't exist in directory?
 
 namespace RSA_SimpleCircleCut
