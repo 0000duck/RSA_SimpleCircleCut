@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using ABB.Robotics;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
-// using ABB.Robotics.Controllers;
+using ABB.Robotics.RobotStudio.Stations.Forms;
+//using ABB.Robotics.Controllers; // Controllers doesn't exist in directory?
 
 namespace RSA_SimpleCircleCut
 {
@@ -149,11 +149,14 @@ namespace RSA_SimpleCircleCut
                 case "RSA_SimpleCircleCut.GalleryButton1":
                     Logger.AddMessage("RSA_SimpleCircleCut: GalleryButton1 pressed");
                     break;
-                case "RSA_SimpleCircleCut.CustButton1":
+                case "RSA_SimpleCircleCut.CustButton1": // Custom Button 1
                     Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 1 pressed");
+                    PickTargets();
+                    Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 1 complete");
                     break;
-                case "RSA_SimpleCircleCut.CustButton2":
+                case "RSA_SimpleCircleCut.CustButton2": // Custom Button 2
                     Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 2 pressed");
+                    KillTargetPicker();
                     break;
                 case "RSA_SimpleCircleCut.CustButton3":
                     Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 3 pressed");
@@ -176,40 +179,7 @@ namespace RSA_SimpleCircleCut
             }
         }
 
-        private static void ShowTarget(Vector3 position)
-        {
-            try
-            {
-                //get the active station
-                Station station = Project.ActiveProject as Station;
-
-                //create robtarget
-                RsRobTarget robTarget = new RsRobTarget();
-                robTarget.Name = station.ActiveTask.GetValidRapidName("Target", "_", 10);
-
-                //translation
-                robTarget.Frame.Translation = position;
-
-                //add robtargets to datadeclaration
-                station.ActiveTask.DataDeclarations.Add(robTarget);
-
-                //create target
-                RsTarget target = new RsTarget(station.ActiveTask.ActiveWorkObject, robTarget);
-                target.Name = robTarget.Name;
-                target.Attributes.Add(target.Name, true);
-
-                //add targets to active task
-                station.ActiveTask.Targets.Add(target);
-            }
-            catch (Exception exception)
-            {
-                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
-            }
-        }
-
-
-
-
+       
         static void gallery_UpdateContent(object sender, EventArgs e)
         {
             var gallery = (CommandBarGalleryPopup)sender;
@@ -233,6 +203,111 @@ namespace RSA_SimpleCircleCut
             var comboBox = (CommandBarComboBox)sender;
             Logger.AddMessage(string.Format("RSA_SimpleCircleCut: Item '{0}' selected", comboBox.SelectedItem.Tag));
         }
+
+        // ---- User input controls ----
+        private static void PickTargets()
+        {
+            //Begin UndoStep
+            Project.UndoContext.BeginUndoStep("MultipleTarget");
+            try
+            {
+                //Initialize GraphicPicker
+                GraphicPicker.GraphicPick += new GraphicPickEventHandler(GraphicPicker_GraphicPick);
+            }
+            catch (Exception ex)
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                Logger.AddMessage(new LogMessage(ex.Message.ToString()));
+            }
+            finally
+            {
+                //End UndoStep
+                Project.UndoContext.EndUndoStep();
+
+            }
+        }
+        private static void KillTargetPicker()
+        {
+            // Destroy GraphicPicker
+            GraphicPicker.GraphicPick -= new GraphicPickEventHandler(GraphicPicker_GraphicPick);
+        }
+
+
+        static void GraphicPicker_GraphicPick(object sender, GraphicPickEventArgs e)
+        {
+            //Begin UndoStep
+            Station station = Project.ActiveProject as Station;
+            string stepName = station.ActiveTask.GetValidRapidName("Target", "_", 10);
+            Project.UndoContext.BeginUndoStep(stepName);
+
+            try
+            {
+                ShowTarget(e.PickedPosition);
+            }
+            catch (Exception exception)
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
+            }
+            finally
+            {
+                //End UndoStep
+                Project.UndoContext.EndUndoStep();
+            }
+        }
+
+        private static void ShowTarget(Vector3 position)
+        {
+            try
+            {
+                //get the active station
+                Station station = Project.ActiveProject as Station;
+
+                //create robtarget
+                RsRobTarget robTarget = new RsRobTarget();
+                robTarget.Name = station.ActiveTask.GetValidRapidName("CustomTarget", "_", 10);
+
+                //translation
+                //get current WorkObj translation
+                RsWorkObject wObjPos = station.ActiveTask.ActiveWorkObject;
+                Vector3 transVector = wObjPos.UserFrame.Translation;
+                // translate vector if rotated from parent
+                transVector = transVector.Rotate(new Vector3(1, 0, 0), wObjPos.UserFrame.RX);
+                Logger.AddMessage("wObj position X rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
+                transVector = transVector.Rotate(new Vector3(0, 1, 0), wObjPos.UserFrame.RY);
+                Logger.AddMessage("wObj position Y rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
+                transVector = transVector.Rotate(new Vector3(0, 0, 1), wObjPos.UserFrame.RZ);
+                Logger.AddMessage("wObj position z rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
+                Vector3 newPosition = position - transVector;
+                robTarget.Frame.Translation = newPosition;
+
+                // messages and stuff for user feedback
+                Logger.AddMessage("position given: x: " + position.x.ToString() + "  y: " + position.y.ToString() + "  z: " + position.z.ToString());
+                Logger.AddMessage("wObj position: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
+                Logger.AddMessage("wObj Rotation: RX: " + wObjPos.UserFrame.RX.ToString() + "  RY: " + wObjPos.UserFrame.RY.ToString() + "  RZ: " + wObjPos.UserFrame.RZ.ToString());
+                Logger.AddMessage("new position calculated: x: " + newPosition.x.ToString() + "  y: " + newPosition.y.ToString() + "  z: " + newPosition.z.ToString());
+
+
+                //add robtargets to datadeclaration
+                station.ActiveTask.DataDeclarations.Add(robTarget);
+
+                //create target
+                // RsWorkObject Current = station.ActiveTask.ActiveWorkObject;
+                RsTarget target = new RsTarget(station.ActiveTask.ActiveWorkObject, robTarget);
+                target.Name = robTarget.Name;
+                target.Attributes.Add(target.Name, true);
+
+
+                //add targets to active task
+                station.ActiveTask.Targets.Add(target);
+            }
+            catch (Exception exception)
+            {
+                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
+            }
+        }
+
+
 
     }
 }
