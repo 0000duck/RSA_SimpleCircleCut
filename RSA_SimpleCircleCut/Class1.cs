@@ -125,10 +125,10 @@ namespace RSA_SimpleCircleCut
                     {
 
                         // Create the first robotstudio target.
-                        ShowTarget(new Vector3(-0.50629, -3, 0.67950));
+                        MyRSTools.ShowTarget(new Vector3(-0.50629, -3, 0.67950));
 
                         // Create the second robotstudio target.
-                        ShowTarget(new Vector3(0.500, 0, 0.700));
+                        MyRSTools.ShowTarget(new Vector3(0.500, 0, 0.700));
 
                     }
                     catch (Exception exception)
@@ -176,6 +176,7 @@ namespace RSA_SimpleCircleCut
                     break;
                 case "RSA_SimpleCircleCut.CustButton8":
                     Logger.AddMessage("RSA_SimpleCircleCut: Custom Button 8 pressed");
+                    BashTesting.Button8Test();
                     break;
             }
         }
@@ -243,7 +244,9 @@ namespace RSA_SimpleCircleCut
 
             try
             {
-                ShowTarget(e.PickedPosition);
+                MyRSTools.toConsole(e.PickedPosition,"cursor input");
+                BashTesting.Execute(e.PickedPosition);
+
             }
             catch (Exception exception)
             {
@@ -256,59 +259,5 @@ namespace RSA_SimpleCircleCut
                 Project.UndoContext.EndUndoStep();
             }
         }
-
-        private static void ShowTarget(Vector3 position)
-        {
-            try
-            {
-                //get the active station
-                Station station = Project.ActiveProject as Station;
-
-                //create robtarget
-                RsRobTarget robTarget = new RsRobTarget();
-                robTarget.Name = station.ActiveTask.GetValidRapidName("CustomTarget", "_", 10);
-
-                //translation
-                //get current WorkObj translation
-                RsWorkObject wObjPos = station.ActiveTask.ActiveWorkObject;
-                Vector3 transVector = wObjPos.UserFrame.Translation;
-                // translate vector if rotated from parent
-                transVector = transVector.Rotate(new Vector3(1, 0, 0), wObjPos.UserFrame.RX);
-                Logger.AddMessage("wObj position X rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
-                transVector = transVector.Rotate(new Vector3(0, 1, 0), wObjPos.UserFrame.RY);
-                Logger.AddMessage("wObj position Y rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
-                transVector = transVector.Rotate(new Vector3(0, 0, 1), wObjPos.UserFrame.RZ);
-                Logger.AddMessage("wObj position z rotation: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
-                Vector3 newPosition = position - transVector;
-                robTarget.Frame.Translation = newPosition;
-
-                // messages and stuff for user feedback
-                Logger.AddMessage("position given: x: " + position.x.ToString() + "  y: " + position.y.ToString() + "  z: " + position.z.ToString());
-                Logger.AddMessage("wObj position: x: " + transVector.x.ToString() + "  y: " + transVector.y.ToString() + "  z: " + transVector.z.ToString());
-                Logger.AddMessage("wObj Rotation: RX: " + wObjPos.UserFrame.RX.ToString() + "  RY: " + wObjPos.UserFrame.RY.ToString() + "  RZ: " + wObjPos.UserFrame.RZ.ToString());
-                Logger.AddMessage("new position calculated: x: " + newPosition.x.ToString() + "  y: " + newPosition.y.ToString() + "  z: " + newPosition.z.ToString());
-
-
-                //add robtargets to datadeclaration
-                station.ActiveTask.DataDeclarations.Add(robTarget);
-
-                //create target
-                // RsWorkObject Current = station.ActiveTask.ActiveWorkObject;
-                RsTarget target = new RsTarget(station.ActiveTask.ActiveWorkObject, robTarget);
-                target.Name = robTarget.Name;
-                target.Attributes.Add(target.Name, true);
-
-
-                //add targets to active task
-                station.ActiveTask.Targets.Add(target);
-            }
-            catch (Exception exception)
-            {
-                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
-            }
-        }
-
-
-
     }
 }
